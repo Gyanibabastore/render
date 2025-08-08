@@ -17,14 +17,18 @@ async function generatePDFWithTemplate(templateNumber, lrData, rawMessage) {
   const html = await ejs.renderFile(templatePath, lrData);
 
   // ✅ Get executable path separately
-  const executablePath = await chromium.executablePath || '/usr/bin/chromium-browser';
+ const executablePath = await chromium.executablePath;
 
-  const browser = await puppeteer.launch({
-    args: chromium.args,
-    defaultViewport: chromium.defaultViewport,
-    executablePath: executablePath,
-    headless: chromium.headless,
-  });
+if (!executablePath) {
+  throw new Error("❌ Chromium executable not found. Cannot generate PDF.");
+}
+
+const browser = await puppeteer.launch({
+  args: chromium.args,
+  defaultViewport: chromium.defaultViewport,
+  executablePath,
+  headless: chromium.headless,
+});
 
   const page = await browser.newPage();
   await page.setContent(html, { waitUntil: 'networkidle0' });
