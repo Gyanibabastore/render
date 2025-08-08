@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "axios": "^1.11.0",
+    "chrome-aws-lambda": "^10.1.0",
+    "dotenv": "^17.2.1",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "puppeteer-core": "^10.4.0",
+    "xlsx": "^0.18.5"
+  }
+}
