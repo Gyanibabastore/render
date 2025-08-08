@@ -16,10 +16,13 @@ async function generatePDFWithTemplate(templateNumber, lrData, rawMessage) {
   const outputPath = path.join(outputDir, `LR-${safeFileName}-${Date.now()}.pdf`);
   const html = await ejs.renderFile(templatePath, lrData);
 
+  // ✅ Get executable path separately
+  const executablePath = await chromium.executablePath || '/usr/bin/chromium-browser';
+
   const browser = await puppeteer.launch({
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath,
+    executablePath: executablePath,
     headless: chromium.headless,
   });
 
@@ -36,5 +39,4 @@ async function generatePDFWithTemplate(templateNumber, lrData, rawMessage) {
   return outputPath;
 }
 
-// ✅ Export for use in other files
 module.exports = generatePDFWithTemplate;
