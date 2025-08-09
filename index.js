@@ -367,8 +367,16 @@ if (cleanedMessage.startsWith('confirm remove')) {
     }
 
     const extracted =await extractDetails(cleanedMessage);
-    const timeNow = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
-    const dateNow = new Date().toLocaleDateString('en-IN');
+    const timeNow = new Date().toLocaleTimeString('en-IN', { 
+  timeZone: 'Asia/Kolkata',
+  hour: '2-digit', 
+  minute: '2-digit', 
+  hour12: true 
+});
+
+const dateNow = new Date().toLocaleDateString('en-IN', { 
+  timeZone: 'Asia/Kolkata'
+});
     const lrData = {
       ...extracted,
       time: timeNow,
